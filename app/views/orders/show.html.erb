@@ -52,14 +52,33 @@
             <th class='number' colspan='2'><%= t '.product_table.order_total' %></th>
             <td class='number'><%= humanized_money_with_symbol @order.cost %></td>
           </tr>
-        </tbody>
+        </tfoot>
       </table>
     </div>
 
-    <% if !@order.fulfilled? %>
-      <%= button_to order_fulfill_path(@order), method: :post, class: "w-full p-4 text-2xl #{fulfill_order_button_class(@order)}", disabled: !@order.fulfillable? do %>
-        <%= t '.fulfill_order' %>
+    <% if (!@order.fulfilled? || @order.restocked?) && (!@order.returned?)  %>
+      <%= button_to order_fulfill_path(@order), method: :post,
+                    class: "w-full p-4 text-2xl #{fulfill_order_button_class(@order)}",
+                    disabled: !@order.fulfillable? do %>
+        <%= t('.fulfill_order') %>
       <% end %>
     <% end %>
+
+    <% if @order.fulfilled? && !@order.returned? && !@order.restocked? %>
+      <%= button_to return_order_order_fulfill_path(@order), method: :post,
+                    class: "w-full p-4 text-2xl #{fulfill_order_button_class(@order)}" do %>
+        <%= t('.return_order') %>
+      <% end %>
+    <% end %>
+
+    <% if @order.returned? %>
+      <%= button_to restock_order_order_fulfill_path(@order), method: :post,
+                    class: "w-full p-4 text-2xl #{fulfill_order_button_class(@order)}" do %>
+        <%= t('.restock_order') %>
+      <% end %>
+    <% end %>
+
+
+
   </div>
 </div>

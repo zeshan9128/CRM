@@ -10,6 +10,7 @@ class ShipInventory
   end
 
   def run
+    order.update!(status: :shipped)
     Inventory.transaction do
       inventory_items.each do |inventory|
         ship_inventory(inventory)

@@ -3,6 +3,10 @@ class Product < ApplicationRecord
   monetize :price_cents
   has_many :inventory
 
+  scope :with_returned_inventory, lambda {
+    joins(:inventory).where(inventory: { status: 'returned' }).distinct
+  }
+
   def in_stock_count
     inventory.on_shelf.count
   end
@@ -10,9 +14,8 @@ class Product < ApplicationRecord
   def needed_inventory_count
     self.class.connection.select_value(<<~SQL)
       SELECT GREATEST(
-        SUM(order_line_items.quantity) - (
-          SELECT quantity FROM product_on_shelf_quantities WHERE product_id = #{id}
-        ), 0)
+        COALESCE(SUM(order_line_items.quantity), 0) - #{on_shelf}, 0
+      )
       FROM order_line_items
         LEFT OUTER JOIN inventories
           ON order_line_items.order_id = inventories.order_id

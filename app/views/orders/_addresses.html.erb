@@ -1,0 +1,46 @@
+<table class='generic-table zebra'>
+  <thead>
+  <tr>
+    <th><%= t '.recipient' %></th>
+    <th><%= t '.address' %></th>
+    <th><%= t '.action' %></th>
+    <th><%= t '.mark_as_fixed' %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% addresses.each do |address| %>
+    <tr data-id='order-<%= address.id %>'>
+      <td>
+          <span class='px-2 py-1 rounded-md shadow-sm'>
+            <%= address.recipient %>
+          </span>
+      </td>
+      <td>
+        <div class='px-2 py-1 rounded-md shadow-sm'>
+          <%= [address.street_1, address.street_2, "#{address.city}, #{address.state}"].compact.join(', ') %>
+        </div>
+      </td>
+
+      <td>
+        <div class='text-gray-400'>
+          <%= link_to 'Edit', edit_address_path(address),
+                      class: "text-blue-500 underline mr-4" %>
+        </div>
+      </td>
+
+      <td>
+        <div class='text-xs text-gray-400'>
+
+          <%= button_to 'Mark Address as Fixed', address_path(address),
+                        method: :put,
+                        params: { mark_fixed: true },
+                        data: { turbo: false },
+                        class: "bg-teal-600 text-white p-1 px-3 ml-2" %>
+        </div>
+      </td>
+    </tr>
+
+  <% end %>
+  </tbody>
+</table>
+

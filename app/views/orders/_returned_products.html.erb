@@ -1,0 +1,28 @@
+<table class='generic-table zebra'>
+  <thead>
+  <tr>
+    <th><%= t 'employees.index.name' %></th>
+    <th><%= t 'employees.index.action' %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% products.each do |product| %>
+    <tr data-id='order-<%= product.id %>'>
+      <td>
+          <span class='px-2 py-1 rounded-md shadow-sm'>
+            <%= product.name %>
+          </span>
+      </td>
+      <td>
+        <div class='text-gray-400'>
+          <%= button_to 'Restock All',
+                        restock_product_path(product),
+                        method: :post,
+                        class: "bg-teal-600 text-white p-1 px-3 ml-2" %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

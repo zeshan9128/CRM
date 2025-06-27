@@ -41,8 +41,21 @@ RSpec.describe Product do
 
       create(:order_line_item, order: other_order, product:, quantity: 1)
       create(:order_line_item, order: other_order, product: other_product, quantity: quantity + 1)
+      product.reload
       expect(product.needed_inventory_count).to eq(1)
       expect(other_product.needed_inventory_count).to eq(1)
+    end
+
+    it 'increments product on shelf when inventory is created' do
+      expect{
+        product.inventory.create(status: 'on_shelf')
+      }.to change{ product.reload.on_shelf }.by(1)
+    end
+
+    it 'decrements product on shelf when inventory is destroyed' do
+      expect{
+        product.inventory.first.destroy
+      }.to change { product.reload.on_shelf }.by(-1)
     end
   end
 end

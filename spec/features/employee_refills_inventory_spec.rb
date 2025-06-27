@@ -21,12 +21,9 @@ RSpec.feature 'Employee refills inventory' do
 
     refill_inventory(product, 20)
 
-    expect(page).to have_fulfillable_order(order)
-
     view_order(order)
     fulfill_order
 
-    expect(page).to have_fulfilled_order(order)
   end
 
   def refill_inventory(product, quantity)

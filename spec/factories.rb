@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :order do
     ships_to factory: :address
+    status { 'placed'}
   end
 
   factory :order_line_item do
@@ -15,6 +16,7 @@ FactoryBot.define do
     city { 'New York City' }
     state { 'NY' }
     zip { '10001' }
+    address_fixed { false }
   end
 
   factory :employee do
@@ -48,4 +50,22 @@ FactoryBot.define do
       cents { 3299 }
     end
   end
+
+  factory :inventory do
+    status { 'on_shelf' }
+    association :order
+    association :product
+
+    trait :on_shelf do
+      status { 'on_shelf' }
+    end
+    trait :shipped do
+      status { 'shipped' }
+    end
+
+    trait :returned do
+      status { 'returned' }
+    end
+  end
+
 end

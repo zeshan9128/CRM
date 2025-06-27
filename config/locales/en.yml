@@ -2,8 +2,10 @@
 en:
   employees:
     index:
+      action: Action
       fulfillable_orders:
         header: Fulfillable Orders
+      name: Product Name
       receive_product:
         header: Receive New Product
         table:
@@ -13,6 +15,10 @@ en:
           quantity: Receive Quantity
       recent_orders:
         header: Recent Orders
+      return_orders:
+        header: Return Orders
+      return_products:
+        header: Return Products
       title: Employee Portal
       welcome: Welcome, %{name}
   helpers:
@@ -37,6 +43,11 @@ en:
     fulfilled: Fulfilled
     unfulfillable: Unfulfillable
   orders:
+    addresses:
+      action: Action
+      address: Shipping Address
+      mark_as_fixed: Mark as Fixed
+      recipient: Recipient
     show:
       fulfill_order: Fulfill order
       order:
@@ -51,6 +62,8 @@ en:
           quantity: Quantity
       products:
         header: Line Items
+      restock_order: Restock order
+      return_order: Return order
       ships_to:
         header: Ships To
     table:
