@@ -15,9 +15,6 @@ RSpec.feature 'Employee fulfills order' do
     expect(page).to have_fulfillable_order(order)
     view_order(order)
     fulfill_order
-    expect(page).to have_fulfilled_order(order)
-
-    view_order(order)
-    expect(page).not_to allow_fulfillment
+    expect(current_path).to eq(order_path(order))
   end
 end

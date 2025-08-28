@@ -4,12 +4,19 @@ Rails.application.routes.draw do
   post 'sign_in', to: 'sessions#create'
   delete 'sign_out', to: 'sessions#destroy', as: :sign_out
 
+  resources :addresses
   resources :employees, only: :index
   resources :orders, only: :show do
-    resource :fulfill, only: [:create]
+    resource :fulfill, only: [:create] do
+      member do
+        post :return_order
+        post :restock_order
+      end
+    end
   end
 
   resources :products do
+    post :restock, on: :member
     resource :receive, only: [:create]
   end
 end

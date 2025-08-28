@@ -1,0 +1,44 @@
+<h1>Edit Address</h1>
+
+<%= form_with model:  @address, method: :put, local: true do |f| %>
+  <div>
+    <%= f.label :recipient %><br>
+    <%= f.text_field :recipient, class: "border p-2 w-full" %>
+  </div>
+
+
+  <div>
+    <%= f.label :street_1, "Street Address" %><br>
+    <%= f.text_field :street_1, class: "border p-2 w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :street_2, "Apartment / Suite" %><br>
+    <%= f.text_field :street_2, class: "border p-2 w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :city %><br>
+    <%= f.text_field :city, class: "border p-2 w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :state %><br>
+    <%= f.text_field :state, class: "border p-2 w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :zip, "ZIP Code" %><br>
+    <%= f.text_field :zip, class: "border p-2 w-full" %>
+  </div>
+
+  <div class="mt-4">
+    <%= f.check_box :address_fixed %>
+    <%= f.label :address_fixed, "Mark address as fixed" %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to "Cancel", employees_path, class: "bg-gray-300 text-black p-1 px-3 rounded hover:bg-gray-400" %>
+    <%= f.submit "Update Address", class: "bg-teal-600 text-white p-1 px-3 ml-2" %>
+  </div>
+<% end %>
